@@ -1,0 +1,44 @@
+﻿@model CouchbaseBeersWeb.Models.Beer
+
+@using (Html.BeginForm())
+{
+<div id="beer" data-role="page">
+
+    <div data-role="header">
+        <h1>@Model.Name</h1>
+        <a href="/" data-icon="home">Home</a>
+        <a data-rel="back">Back</a>
+    </div>
+
+    <div data-role="content">
+        
+        <h3>Name</h3>
+        <p>@Html.EditorFor(m => m.Name)</p>
+        
+        <h3>Description</h3>
+        <p>@Html.EditorFor(m => m.Description)</p>
+        
+        @if (Model.ABV > 0)
+        {
+            <h3>Alcohol by volume (ABV)</h3>
+            <p>@Html.EditorFor(m => m.ABV)</p>
+        }
+        @if (Model.IBU > 0)
+        {
+            <h3>International Bittering Units (IBU)</h3>
+            <p>@Html.EditorFor(m => m.IBU)</p>
+        }
+        @if (Model.SRM > 0)
+        {
+            <h3>Standard Reference Method (SRM)</h3>
+            <p>@Html.EditorFor(m => m.SRM)</p>
+        }
+
+        <ul data-role="listview" data-inset="true">
+            @*<li><%= link_to "Brewed in #{@Model.brewery.name}", brewery_path(@Model.brewery_id)</li>*@
+            <input type="submit" value="Save Beer" />
+        </ul>
+    </div>
+
+</div>
+}

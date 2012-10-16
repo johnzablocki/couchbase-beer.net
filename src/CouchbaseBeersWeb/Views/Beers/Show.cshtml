@@ -1,0 +1,37 @@
+﻿@model CouchbaseBeersWeb.Models.Beer
+
+<div id="beer" data-role="page">
+
+    <div data-role="header">
+        <h1>@Model.Name</h1>
+        <a href="/" data-icon="home">Home</a>
+        <a data-rel="back">Back</a>
+    </div>
+
+    <div data-role="content">
+        <h2>@Model.Name</h2>
+
+        <p>@Model.Description</p>
+        @if (Model.ABV > 0)
+        {
+            <h3>Alcohol by volume (ABV)</h3>
+            <p>@Model.ABV</p>
+        }
+        @if (Model.IBU > 0)
+        {
+            <h3>International Bittering Units (IBU)</h3>
+            <p>@Model.IBU</p>
+        }
+        @if (Model.SRM > 0)
+        {
+            <h3>Standard Reference Method (SRM)</h3>
+            <p>@Model.SRM</p>
+        }
+
+        <ul data-role="listview" data-inset="true">
+            @*<li><%= link_to "Brewed in #{@Model.brewery.name}", brewery_path(@Model.brewery_id) %></li>*@
+            <li>@Html.ActionLink("Update Info", "Edit", "Beers", new { id = @Model.Id }, null)</li>      
+        </ul>
+    </div>
+
+</div>
