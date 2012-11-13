@@ -33,6 +33,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Enyim.Caching.Memcached.Results.Extensions;
 using Newtonsoft.Json.Serialization;
+using System.Data.Entity.Design.PluralizationServices;
+using System.Globalization;
 
 namespace CouchbaseBeersWeb.Models
 {
@@ -45,15 +47,6 @@ namespace CouchbaseBeersWeb.Models
 		protected CouchbaseClient _Client
 		{
 			get { return getCouchbaseClient(); }
-		}
-
-		private CouchbaseClientConfiguration getCouchbaseClientConfig()
-		{
-			var config = new CouchbaseClientConfiguration();
-			config.Urls.Add(new Uri("http://localhost:8091/pools/"));
-			config.Bucket = "beer-sample";
-
-			return config;
 		}
 
 		public IStoreOperationResult Create(string key, T value)
@@ -88,9 +81,8 @@ namespace CouchbaseBeersWeb.Models
 
 		public IEnumerable<T> GetAll(string startKey = null, string endKey = null, int limit = 50)
 		{
-			createAllViewIfNotExists();
-
-			var view = _Client.GetView<T>(typeof(T).Name.ToLower(), "all", true).Limit(limit);
+			var viewName = PluralizationService.CreateService(CultureInfo.CurrentCulture).Pluralize(typeof(T).Name.ToLower());
+			var view = _Client.GetView<T>(viewName, "all", true).Limit(limit);
 			if (startKey != null) view.StartKey(startKey);
 			if (endKey != null) view.EndKey(endKey);
 
@@ -108,22 +100,10 @@ namespace CouchbaseBeersWeb.Models
 
 			if (!ctx.Items.Contains(ITEMS_CLIENT_KEY))
 			{
-				ctx.Items[ITEMS_CLIENT_KEY] = new CouchbaseClient(getCouchbaseClientConfig());
+				ctx.Items[ITEMS_CLIENT_KEY] = new CouchbaseClient();
 			}
 
 			return ctx.Items[ITEMS_CLIENT_KEY] as CouchbaseClient;
-		}
-
-		private CouchbaseCluster getCouchbaseCluster()
-		{
-			var ctx = HttpContext.Current.ApplicationInstance.Context;
-
-			if (!ctx.Items.Contains(ITEMS_CLIENT_KEY))
-			{
-				ctx.Items[ITEMS_CLUSTER_KEY] = new CouchbaseCluster(getCouchbaseClientConfig());
-			}
-
-			return ctx.Items[ITEMS_CLUSTER_KEY] as CouchbaseCluster;
 		}
 
 		private string serializeAndIgnoreId(T obj)
@@ -135,44 +115,6 @@ namespace CouchbaseBeersWeb.Models
 				});
 
 			return json;
-		}
-
-		private void createAllViewIfNotExists()
-		{
-			var typeName = typeof(T).Name.ToLower();
-
-			if (_existingAllItemViews.Contains(typeName)) return;
-
-			var cluster = getCouchbaseCluster();
-			var cfg = getCouchbaseClientConfig();			
-			var viewTemplate = "function(doc, meta) {{ if (doc.type == \"{0}\") {{ emit(doc.name, null); }} }}";
-
-			string json = null;
-			try
-			{
-				json = cluster.RetrieveDesignDocument(cfg.Bucket, typeName);
-			}
-			catch (WebException ex)
-			{
-				//TODO: Handle create document, not just view
-			}
-
-			if (!string.IsNullOrEmpty(json))
-			{
-				var jObject = JObject.Parse(json);
-				var views = jObject["views"] as JObject;
-
-				if (views["all"] != null) views.Remove("all");
-
-				var allView = new JObject();
-				allView["map"] = string.Format(viewTemplate, typeName);
-
-				views.Add("all", allView);
-
-				cluster.CreateDesignDocument(cfg.Bucket, typeName, jObject.ToString());
-				_existingAllItemViews.Add(typeName);
-			}
-
 		}
 
 		private class DocumentIdContractResolver : DefaultContractResolver

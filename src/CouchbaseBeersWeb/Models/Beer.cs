@@ -23,13 +23,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CouchbaseModelViews.Framework.Attributes;
 using Newtonsoft.Json;
 
 namespace CouchbaseBeersWeb.Models
 {
+	[CouchbaseDesignDoc("beers", "beer")]
+	[CouchbaseAllView]
 	public class Beer : ModelBase
 	{		
-		[JsonProperty("name")]		
+		[JsonProperty("name")]
+		[CouchbaseViewKey("by_name", "name")]
 		public string Name { get; set; }
 
 		[JsonProperty("abv")]
