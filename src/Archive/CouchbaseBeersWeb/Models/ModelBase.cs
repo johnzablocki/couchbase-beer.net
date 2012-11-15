@@ -8,7 +8,8 @@ namespace CouchbaseBeersWeb.Models
 {
 	public abstract class ModelBase
 	{
-		[JsonProperty("_id")]
 		public string Id { get; set; }
+
+		public abstract string Type { get; }
 	}
 }

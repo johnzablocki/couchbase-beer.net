@@ -32,22 +32,17 @@ namespace CouchbaseBeersWeb.Models
 	[CouchbaseAllView]
 	public class Beer : ModelBase
 	{		
-		[JsonProperty("name")]
 		[CouchbaseViewKey("by_name", "name")]
 		public string Name { get; set; }
 
-		[JsonProperty("abv")]
 		public float ABV { get; set; }
 
-		[JsonProperty("ibu")]
 		public float IBU { get; set; }
 
-		[JsonProperty("srm")]
 		public float SRM { get; set; }
 
-		[JsonProperty("description")]
 		public string Description { get; set; }
 
-		public string Type { get { return "beer"; } }
+		public override string Type { get { return "beer"; } }
 	}
 }

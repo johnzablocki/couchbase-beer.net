@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ModelViewsConfig.cs" />
+    <Compile Include="Controllers\BreweriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +131,7 @@
     <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Models\BeerRepository.cs" />
+    <Compile Include="Models\Brewery.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\WebRepositoryBase%271.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -190,6 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Beers\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Breweries\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Breweries\Show.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

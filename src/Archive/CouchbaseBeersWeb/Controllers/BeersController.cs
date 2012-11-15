@@ -50,7 +50,7 @@ namespace CouchbaseBeersWeb.Controllers
 				savedBeer.Value.IBU = beer.IBU;
 				savedBeer.Value.SRM = beer.SRM;
 								
-				BeerRepository.Save(id, savedBeer.Value);
+				BeerRepository.Save(savedBeer.Value);
 			}
 			
 			return RedirectToAction("Show", new { id = id });
