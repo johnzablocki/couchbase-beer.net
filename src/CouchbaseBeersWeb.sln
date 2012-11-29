@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouchbaseBeersWeb", "CouchbaseBeersWeb\CouchbaseBeersWeb.csproj", "{C5D20E2C-B006-43D2-A00C-7A640E5216D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouchbaseBeersWeb", "CouchbaseBeersWeb\CouchbaseBeersWeb.csproj", "{75ABFD1E-B3D8-4DE0-957D-DA3FED44DA42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C5D20E2C-B006-43D2-A00C-7A640E5216D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5D20E2C-B006-43D2-A00C-7A640E5216D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5D20E2C-B006-43D2-A00C-7A640E5216D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5D20E2C-B006-43D2-A00C-7A640E5216D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75ABFD1E-B3D8-4DE0-957D-DA3FED44DA42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75ABFD1E-B3D8-4DE0-957D-DA3FED44DA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75ABFD1E-B3D8-4DE0-957D-DA3FED44DA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75ABFD1E-B3D8-4DE0-957D-DA3FED44DA42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

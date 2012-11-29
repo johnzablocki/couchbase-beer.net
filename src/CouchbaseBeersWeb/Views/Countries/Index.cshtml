@@ -1,0 +1,25 @@
+﻿@model IEnumerable<KeyValuePair<string, int>>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Brewery Countries</h2>
+
+<table>
+    <tr>
+        <th>
+            Country Name
+        </th>                
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(@item.Key + " " + "(" + @item.Value + ")", "Details", "Countries", new { country = item.Key }, new { })
+            
+        </td>                
+    </tr>
+}
+
+</table>
